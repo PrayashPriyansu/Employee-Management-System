@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* .rc-time-picker-panel-select-option-selected {
+  background-color: #edeffe;
+  font-weight: normal;
+}
+
+.rc-time-picker-clear,
+.rc-time-picker-clear-icon:after {
+  font-size: 15px;
+}
+
+.rc-time-picker-panel-select,
+.rc-time-picker-input,
+.rc-time-picker-panel-input {
+  font-family: "Consolas", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.rc-time-picker-panel-select::-webkit-scrollbar,
+.rc-time-picker-input::-webkit-scrollbar,
+.rc-time-picker-panel-input::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+} */
