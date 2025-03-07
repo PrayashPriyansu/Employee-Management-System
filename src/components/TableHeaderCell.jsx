@@ -1,6 +1,6 @@
 function TableHeaderCell({ data }) {
   return (
-    <th className="px-2 py-1 text-xs font-semibold text-left w-fit bg-stone-200 backdrop-blur-lg text-stone-500 last-of-type:text-right">
+    <th className="text-left border-b border-stone-200 text-stone-950/50 first-of-type:text-center">
       {data}
     </th>
   );

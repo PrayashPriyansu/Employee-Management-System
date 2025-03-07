@@ -1,104 +1,84 @@
-import { motion } from "motion/react";
 import { useState } from "react";
+
+import Td from "./Td";
 function TableDataCell({ data }) {
-  const [isPresent, setIsPresent] = useState(false);
+  const [isPresent, setIsPresent] = useState(data.present);
   const [inTime, setInTime] = useState("08:00");
   const [outTime, setOutTime] = useState("16:00");
 
-  const overTimeInHours = getOverTime(outTime);
+  let [inHours, inMinutes] = inTime.split(":").map((i) => parseInt(i));
+  const [outHours, outMinutes] = outTime.split(":").map((i) => parseInt(i));
 
-  const tdStyle = `px-2 py-2 text-sm border-b text-align-top  ${
-    isPresent ? "text-stone-950/80" : "text-stone-950/20"
-  }`;
-
-  function handleInTimeChange(e) {
-    setInTime(e.target.value);
+  if (inHours === 8 && inMinutes <= 30) {
+    inMinutes = 0;
   }
 
-  function handleOutTimeChange(e) {
-    setOutTime(e.target.value);
-  }
+  const inTimeInMins = inHours * 60 + inMinutes;
+  const outTimeInMins = outHours * 60 + outMinutes;
 
-  function handleIsPresentChange(e) {
-    setIsPresent(e.target.checked);
-  }
+  const totalTimeInMins = outTimeInMins - inTimeInMins;
+
+  const overTime = totalTimeInMins - 480;
 
   return (
-    <tr className={`${!isPresent && " "} transition-opacity duration-[650ms] `}>
-      <td className={`${tdStyle}`}>
+    <tr className="border-b border-stone-200">
+      <td className="p-2 text-center">
         <input
-          type="checkbox"
-          name=""
-          id=""
           checked={isPresent}
-          onChange={handleIsPresentChange}
-          className={`cursor-pointer rounded-md appearance-none transition-none active:outline-none transition-colors active:ring bg-red-200 text-black border shrink-0 focus:ring border-black checked:bg-green-200
-           size-4`}
+          onChange={() => setIsPresent(!isPresent)}
+          className="text-black transition-all duration-200 bg-red-400 border-black rounded-md appearance-none cursor-pointer size-4 active:outline-none active:ring shrink-0 focus:ring ring-gray-500 checked:bg-green-400 hover:ring"
+          type="checkbox"
         />
       </td>
-      <td
-        className={`${tdStyle} font-semibold transition-opacity duration-[750ms] `}
+      <Td
+        className={`font-semibold text-left duration-200 transition-colors ${
+          !isPresent && "text-stone-950/40"
+        }`}
       >
         {data.name}
-      </td>
-
+      </Td>
       {isPresent ? (
         <>
-          <motion.td
-            className={tdStyle}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.75, ease: "easeInOut" }}
-          >
-            <div className="resize">
-              <input type="time" value={inTime} onChange={handleInTimeChange} />
-            </div>
-          </motion.td>
-          <motion.td
-            className={tdStyle}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.75, ease: "easeInOut" }}
-          >
-            <input type="time" value={outTime} onChange={handleOutTimeChange} />
-          </motion.td>
-          <motion.td
-            className={`${tdStyle}  text-right`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.75, ease: "easeInOut" }}
-          >
-            {Math.floor(overTimeInHours)}
-          </motion.td>
+          <Td className="">
+            <input
+              type="time"
+              value={inTime}
+              onChange={(e) => {
+                setInTime(e.target.value);
+              }}
+            />
+          </Td>
+          <Td className="">
+            <input
+              type="time"
+              value={outTime}
+              onChange={(e) => {
+                setOutTime(e.target.value);
+              }}
+            />
+          </Td>
+          <Td className={`${overTime < 0 ? "text-red-500" : ""}`}>
+            {Math.floor(totalTimeInMins / 60)} hrs {""}
+            {totalTimeInMins % 60} mins
+          </Td>
+          <Td className="">
+            {overTime < 30 ? (
+              <span className="font-semibold">None</span>
+            ) : (
+              <>
+                {Math.floor(overTime / 60) > 0 &&
+                  `${Math.floor(overTime / 60)} hrs `}
+                {overTime % 60 > 0 && `${overTime % 60} mins`}
+              </>
+            )}
+          </Td>
         </>
       ) : (
-        <motion.td
-          colSpan={3}
-          className={`${tdStyle} py-[9px] font-semibold text-stone-950/20`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.75, ease: "easeInOut" }}
-        >
+        <Td absent={true} colSpan={3} className="text-center text-stone-950/40">
           Absent
-        </motion.td>
+        </Td>
       )}
     </tr>
   );
 }
-
 export default TableDataCell;
-
-function getOverTime(outTime) {
-  const [outHours, outMinutes] = outTime.split(":").map((i) => parseInt(i));
-  const outTimeInMins = outHours * 60 + outMinutes;
-
-  const standEndTime = 16 * 60;
-
-  const overTime = outTimeInMins - standEndTime;
-
-  return overTime / 60;
-}

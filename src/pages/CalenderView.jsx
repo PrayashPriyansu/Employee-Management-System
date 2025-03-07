@@ -55,11 +55,9 @@ function CalenderView() {
     ) {
       nextMonth(day);
     }
-
     setSelectedDay(day);
   }
 
-  console.log(startOfWeek(endOfMonth(today)));
   return (
     <div className="pt-8">
       <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">

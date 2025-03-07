@@ -1,10 +1,21 @@
 import { ArrowLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import Profile from "../components/Profile";
+import { useQuery } from "react-query";
+import { getEmployeeDetails } from "../services/apiEmployees";
+import Spinner from "../components/Spinner";
 
 function EmployeeDetail() {
   const { id } = useParams();
-  console.log(id);
+
+  const { data, isPending, isFetching } = useQuery({
+    queryKey: ["employee", id],
+    queryFn: () => getEmployeeDetails(id),
+  });
+
+  if (!isPending && isFetching) {
+    return <Spinner />;
+  }
 
   return (
     <div className="relative w-full h-full px-3 overflow-y-auto">
@@ -34,7 +45,7 @@ function EmployeeDetail() {
       </div>
 
       <div className="text-xl font-semibold">
-        <Profile />
+        <Profile employeeData={data?.data} />
       </div>
     </div>
   );

@@ -1,8 +1,14 @@
 import TableDataCell from "./TableDataCell";
 import TableHeaderCell from "./TableHeaderCell";
-import { motion } from "motion/react";
 
-const tableHeaders = ["Present", "Name", "In-Time", "Out-Time", "Overtime"];
+const tableHeaders = [
+  "Present",
+  "Name",
+  "In-Time",
+  "Out-Time",
+  "Total Hours",
+  "Overtime",
+];
 
 const tableData = [
   { present: true, name: "Jane Smith", inTime: "09:21", outTime: "17:23" },
@@ -15,24 +21,18 @@ const tableData = [
 
 function AttendanceTable() {
   return (
-    <div className="relative  [&::-webkit-scrollbar]:hidden">
-      <div className="max-h-[360px] overflow-x-auto overflow-y-auto rounded   [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded [&::-webkit-scrollbar-thumb]:bg-slate-400 [&::-webkit-scrollbar-track]:bg-slate-100 [&::-webkit-scrollbar-track]:rounded ">
-        <motion.table layout className="min-w-full border-collapse table-fixed">
-          <thead className="sticky top-0 z-10 backdrop-blur-lg">
-            <tr>
-              {tableHeaders.map((i, l) => (
-                <TableHeaderCell key={l} data={i} />
-              ))}
-            </tr>
-          </thead>
-          <motion.tbody layout>
-            {tableData.map((i, l) => (
-              <TableDataCell key={l} data={i} />
-            ))}
-          </motion.tbody>
-        </motion.table>
-      </div>
-    </div>
+    <table className="w-full overflow-x-auto border-collapse table-fixed">
+      <tr className="sticky top-0 z-10 bg-white">
+        {tableHeaders.map((header, index) => (
+          <TableHeaderCell key={index} data={header} />
+        ))}
+      </tr>
+      <tbody>
+        {tableData.map((data, index) => (
+          <TableDataCell key={index} data={data} />
+        ))}
+      </tbody>
+    </table>
   );
 }
 

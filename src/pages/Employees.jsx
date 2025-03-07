@@ -1,49 +1,53 @@
 import { EditIcon, Eye, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
+import useEmployees from "../feature/Employees/useEmployees";
+import { getEmployeesDetails } from "../services/apiEmployees";
 
-const employees = [
-  {
-    id: 1,
-    name: "John Doe",
-    phone: "9876543210",
-    attendance: {
-      present: 20,
-      absent: 5,
-      late: 2,
-    },
-    overtimeHours: 10,
-    totalHoursWorked: 160,
-    hourlyRate: 90,
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    phone: "1234567890",
-    attendance: {
-      present: 18,
-      absent: 7,
-      late: 3,
-    },
-    overtimeHours: 8,
-    totalHoursWorked: 150,
-    hourlyRate: 120,
-  },
-  {
-    id: 3,
-    name: "Alice Brown",
-    phone: "5555512345",
-    attendance: {
-      present: 22,
-      absent: 3,
-      late: 1,
-    },
-    overtimeHours: 12,
-    totalHoursWorked: 170,
-    hourlyRate: 100,
-  },
-];
+// const employees = [
+//   {
+//     id: 1,
+//     name: "John Doe",
+//     phone: "9876543210",
+//     attendance: {
+//       present: 20,
+//       absent: 5,
+//       late: 2,
+//     },
+//     overtimeHours: 10,
+//     totalHoursWorked: 160,
+//     hourlyRate: 90,
+//   },
+//   {
+//     id: 2,
+//     name: "Jane Smith",
+//     phone: "1234567890",
+//     attendance: {
+//       present: 18,
+//       absent: 7,
+//       late: 3,
+//     },
+//     overtimeHours: 8,
+//     totalHoursWorked: 150,
+//     hourlyRate: 120,
+//   },
+//   {
+//     id: 3,
+//     name: "Alice Brown",
+//     phone: "5555512345",
+//     attendance: {
+//       present: 22,
+//       absent: 3,
+//       late: 1,
+//     },
+//     overtimeHours: 12,
+//     totalHoursWorked: 170,
+//     hourlyRate: 100,
+//   },
+// ];
 
 function EmployeeTable() {
+  const { employees = [], isPending, isFetching } = useEmployees();
+
   const thStyle =
     " text-left px-2 py-1 border-b text-xs text-stone-500 font-medium ";
 
@@ -76,17 +80,20 @@ function EmployeeTable() {
                 </td>
                 <td className={`text-left ${tdStyle}`}>{employee.phone}</td>
                 <td className={`text-right ${tdStyle}`}>
-                  {employee.attendance.present}
+                  {/* {employee.attendance.present} */}
+                  20
                 </td>
                 <td className={`text-right ${tdStyle}`}>
-                  {employee.attendance.absent}
+                  {/* {employee.attendance.absent} */}2
                 </td>
 
                 <td className={`text-right ${tdStyle}`}>
-                  {employee.overtimeHours}
+                  {/* {employee.overtimeHours} */}
+                  30
                 </td>
                 <td className={`text-right ${tdStyle}`}>
-                  {employee.totalHoursWorked}
+                  {/* {employee.totalHoursWorked} */}
+                  120
                 </td>
                 <td className={`text-right ${tdStyle}`}>
                   {employee.hourlyRate}
