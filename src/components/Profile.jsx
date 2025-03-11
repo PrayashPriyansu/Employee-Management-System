@@ -81,7 +81,6 @@ const profileData = [
 ];
 
 function Profile({ employeeData: employee }) {
-  console.log(employee);
   return (
     <div className="grid grid-cols-4 gap-3 lg:grid-cols-12 ">
       <div className="flex flex-col gap-2 px-2 py-5 border rounded shadow col-span-full border-stone-300">

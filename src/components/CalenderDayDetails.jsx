@@ -1,6 +1,6 @@
 import { format } from "date-fns";
-import Button from "./Button";
 import { CircleCheck } from "lucide-react";
+import Button from "./ui/Button";
 
 function CalenderDayDetails({ selectedDay }) {
   return (
@@ -23,7 +23,6 @@ function CalenderDayDetails({ selectedDay }) {
         </div>
         <div>
           <span>Hours Worked</span>
-          
         </div>
       </div>
     </div>

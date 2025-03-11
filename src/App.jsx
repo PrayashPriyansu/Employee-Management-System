@@ -1,16 +1,22 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AppLayout from "./ui/AppLayout";
+import AppLayout from "./components/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import Attendance from "./pages/Attendance";
 import Employees from "./pages/Employees";
 import EmployeeDetail from "./pages/EmployeeDetail";
 import CalenderView from "./pages/CalenderView";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "sonner";
+import Signin from "./pages/Signin";
+import User from "./pages/User";
 
 function App() {
   const queryClient = new QueryClient();
   const router = createBrowserRouter([
+    {
+      path: "/signin",
+      element: <Signin />,
+    },
     {
       element: <AppLayout />,
       children: [
@@ -34,12 +40,17 @@ function App() {
           path: "/employees/:id/details",
           element: <CalenderView />,
         },
+        {
+          path: "/user",
+          element: <User />,
+        },
       ],
     },
   ]);
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Toaster richColors position="top-center" />
       <RouterProvider router={router} />
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>

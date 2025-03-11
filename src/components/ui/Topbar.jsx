@@ -1,5 +1,5 @@
 import { format, getHours, startOfDay } from "date-fns";
-import Searchbar from "../components/Searchbar";
+import Searchbar from "../Searchbar";
 
 function getTimeOfDay() {
   const hour = getHours(new Date());

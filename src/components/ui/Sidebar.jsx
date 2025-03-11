@@ -1,7 +1,7 @@
-import AccountToggle from "../components/AccountToggle";
-import NavMenu from "../components/NavMenu";
+import AccountToggle from "../AccountToggle";
+import NavMenu from "../NavMenu";
 
-import ToggleClose from "../components/ToggleClose";
+import ToggleClose from "../ToggleClose";
 
 function Sidebar({ isOpen, handleSidebar }) {
   return (

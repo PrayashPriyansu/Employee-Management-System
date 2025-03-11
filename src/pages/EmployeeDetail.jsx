@@ -2,15 +2,19 @@ import { ArrowLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import Profile from "../components/Profile";
 import { useQuery } from "react-query";
-import { getEmployeeDetails } from "../services/apiEmployees";
+import { getEmployeeDetail } from "../services/apiEmployees";
 import Spinner from "../components/Spinner";
+import EditModal from "../components/ui/EditModal";
+import { useState } from "react";
 
 function EmployeeDetail() {
   const { id } = useParams();
 
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
+
   const { data, isPending, isFetching } = useQuery({
     queryKey: ["employee", id],
-    queryFn: () => getEmployeeDetails(id),
+    queryFn: () => getEmployeeDetail(id),
   });
 
   if (!isPending && isFetching) {
@@ -35,12 +39,17 @@ function EmployeeDetail() {
           >
             Show Details
           </Link>
-          <Link
-            to={`/employees/${id}/edit`}
-            className="sticky top-0 z-10 flex items-center gap-1 px-2 py-1 mb-2 rounded-md bg-stone-200 w-fit"
+          <button
+            onClick={() => setIsOpenEdit(true)}
+            className="flex items-center gap-1 px-2 py-1 mb-2 rounded-md bg-stone-200 w-fit"
           >
             Edit
-          </Link>
+          </button>
+          <EditModal
+            employeeData={data}
+            isOpen={isOpenEdit}
+            handleClose={() => setIsOpenEdit(false)}
+          />
         </div>
       </div>
 

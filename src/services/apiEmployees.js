@@ -8,15 +8,50 @@ export async function getEmployeesDetails() {
   return { data, error };
 }
 
-export async function getEmployeeDetails(id) {
+export async function deleteEmployee(id) {
+  const { data, error } = await supabase
+    .from("employees")
+    .delete()
+    .eq("id", id);
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function getEmployeeDetail(id) {
   const { data, error } = await supabase
     .from("employees")
     .select("*")
     .eq("id", id)
     .single();
-  console.log(data);
 
   if (error) throw new Error(error.message);
 
   return { data, error };
+}
+
+export async function addEmployee(employee) {
+  const { data, error } = await supabase
+    .from("employees")
+    .insert([employee])
+    .select();
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function updateEmployee(id, employee) {
+  console.log(id, employee);
+
+  const { data, error } = await supabase
+    .from("employees")
+    .update(employee)
+    .eq("id", id)
+    .select();
+
+  if (error) throw new Error(error.message);
+
+  return data;
 }

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Td from "./Td";
-function TableDataCell({ data }) {
-  const [isPresent, setIsPresent] = useState(data.present);
+function TableDataCell({ name, emp_id, setAttendanceData }) {
+  const [isPresent, setIsPresent] = useState(false);
   const [inTime, setInTime] = useState("08:00");
   const [outTime, setOutTime] = useState("16:00");
 
@@ -20,6 +20,43 @@ function TableDataCell({ data }) {
 
   const overTime = totalTimeInMins - 480;
 
+  const totalHours =
+    totalTimeInMins / 60 - Math.floor(totalTimeInMins / 60) >= 0.5
+      ? Math.floor(totalTimeInMins / 60) + 0.5
+      : Math.floor(totalTimeInMins / 60);
+
+  const overTimeHours =
+    overTime / 60 - Math.floor(overTime / 60) >= 0.5
+      ? Math.floor(overTime / 60) + 0.5
+      : Math.floor(overTime / 60);
+
+  useEffect(() => {
+    setAttendanceData((prevData) => {
+      return prevData.map((entry) => {
+        if (entry.emp_id === emp_id) {
+          return {
+            ...entry,
+            present: isPresent,
+            in_time: inTime,
+            out_time: outTime,
+            total_hours: totalHours,
+            overtime: overTimeHours,
+          };
+        }
+        return entry;
+      });
+    });
+  }, [
+    isPresent,
+    inTime,
+    emp_id,
+    outTime,
+    name,
+    setAttendanceData,
+    overTimeHours,
+    totalHours,
+  ]);
+
   return (
     <tr className="border-b border-stone-200">
       <td className="p-2 text-center">
@@ -35,7 +72,7 @@ function TableDataCell({ data }) {
           !isPresent && "text-stone-950/40"
         }`}
       >
-        {data.name}
+        {name}
       </Td>
       {isPresent ? (
         <>

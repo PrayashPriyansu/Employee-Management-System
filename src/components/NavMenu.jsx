@@ -1,4 +1,4 @@
-import { Home, UserCheck, Users } from "lucide-react";
+import { Home, Lock, UserCheck, Users } from "lucide-react";
 
 import NavItem from "./NavItem";
 
@@ -6,6 +6,7 @@ const routes = [
   { path: "/", Icon: Home, name: "Dashboard" },
   { path: "/attendance", Icon: UserCheck, name: "Attendance" },
   { path: "/employees", Icon: Users, name: "Employees" },
+  { path: "/user", Icon: Lock, name: "Users" },
 ];
 
 function NavMenu({ isOpen }) {

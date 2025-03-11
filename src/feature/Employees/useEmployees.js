@@ -8,11 +8,8 @@ function useEmployees() {
   });
 
   if (error) throw new Error(error.message);
-  //   console.log(data);
 
   const employees = data?.data;
-
-  console.log(employees);
 
   return {
     employees,

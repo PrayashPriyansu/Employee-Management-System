@@ -1,8 +1,13 @@
 import supabase from "./supabase";
 
-export async function insertAttendanceData() {
+export async function insertAttendanceData(attendanceData) {
   const { data, error } = await supabase
     .from("attendance")
-    .insert([{ some_column: "someValue", other_column: "otherValue" }])
+    .insert(attendanceData)
     .select();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 }

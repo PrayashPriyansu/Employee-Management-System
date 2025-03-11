@@ -1,63 +1,48 @@
 import { EditIcon, Eye, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
-import useEmployees from "../feature/Employees/useEmployees";
-import { getEmployeesDetails } from "../services/apiEmployees";
 
-// const employees = [
-//   {
-//     id: 1,
-//     name: "John Doe",
-//     phone: "9876543210",
-//     attendance: {
-//       present: 20,
-//       absent: 5,
-//       late: 2,
-//     },
-//     overtimeHours: 10,
-//     totalHoursWorked: 160,
-//     hourlyRate: 90,
-//   },
-//   {
-//     id: 2,
-//     name: "Jane Smith",
-//     phone: "1234567890",
-//     attendance: {
-//       present: 18,
-//       absent: 7,
-//       late: 3,
-//     },
-//     overtimeHours: 8,
-//     totalHoursWorked: 150,
-//     hourlyRate: 120,
-//   },
-//   {
-//     id: 3,
-//     name: "Alice Brown",
-//     phone: "5555512345",
-//     attendance: {
-//       present: 22,
-//       absent: 3,
-//       late: 1,
-//     },
-//     overtimeHours: 12,
-//     totalHoursWorked: 170,
-//     hourlyRate: 100,
-//   },
-// ];
+import Button from "../components/ui/Button";
+import { useState } from "react";
+import CreateModal from "../components/ui/CreateModal";
+import EditModal from "../components/ui/EditModal";
+import useDeleteEmployee from "../feature/Employees/useDeleteEmployee";
+import Spinner from "../components/ui/Spinner";
+import getDummyData from "../services/dummyData";
+
+const thStyle =
+  " text-left px-2 py-1 border-b text-xs text-stone-500 font-medium ";
+
+const tdStyle = " text-left text-sm px-2 py-3 border-b text-stone-950/80 ";
 
 function EmployeeTable() {
-  const { employees = [], isPending, isFetching } = useEmployees();
+  // const { employees = [] } = useEmployees();
+  const employees = getDummyData();
 
-  const thStyle =
-    " text-left px-2 py-1 border-b text-xs text-stone-500 font-medium ";
+  console.log(employees);
 
-  const tdStyle = " text-left text-sm px-2 py-3 border-b text-stone-950/80 ";
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
+
+  const [deleteId, setDeleteId] = useState(null);
+
+  const { deleteEmployee, isLoadingDelete } = useDeleteEmployee();
+
+  const handleAddEmployee = () => {
+    setIsOpen(true);
+  };
 
   return (
-    <div className="px-3">
+    <div className="flex flex-col gap-2 px-3">
+      <CreateModal isOpen={isOpen} handleClose={() => setIsOpen(false)} />
+      <div className="flex">
+        <div className="flex-1"></div>
+        <Button size="small" variant="secondary" onClick={handleAddEmployee}>
+          Add Employee
+        </Button>
+      </div>
       <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse table-fixed">
-          <thead>
+        <table className="relative min-w-full border-collapse table-fixed">
+          <thead className="">
             <tr>
               <th className={`${thStyle}  w-1/6`}>Name</th>
               <th className={`${thStyle} text-left w-1/12`}>Ph. No.</th>
@@ -72,9 +57,14 @@ function EmployeeTable() {
               <th className={`${thStyle} text-right w-1/4`}>Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="h-10">
             {employees.map((employee, index) => (
-              <tr key={index}>
+              <tr
+                className={`transition-colors duration-200 ${
+                  deleteId === employee.id ? "bg-red-50" : ""
+                }`}
+                key={index}
+              >
                 <td className={`text-left font-semibold ${tdStyle}`}>
                   {employee.name}
                 </td>
@@ -96,7 +86,7 @@ function EmployeeTable() {
                   120
                 </td>
                 <td className={`text-right ${tdStyle}`}>
-                  {employee.hourlyRate}
+                  {employee.hourly_rate}
                 </td>
                 <td className={`text-right font-semibold ${tdStyle}`}>
                   {employee.hourlyRate *
@@ -108,11 +98,28 @@ function EmployeeTable() {
                       <Eye className="size-5 stroke-[1.2] cursor-pointer hover:scale-110 hover:fill-green-400" />
                     </Link>
                     <button>
-                      <EditIcon className="size-5 stroke-[1.2] cursor-pointer hover:scale-110 hover:fill-blue-400" />
+                      <EditIcon
+                        onClick={() => setIsOpenEdit(true)}
+                        className="size-5 stroke-[1.2] cursor-pointer hover:scale-110 hover:fill-blue-400"
+                      />
+                      <EditModal
+                        employeeData={employee}
+                        isOpen={isOpenEdit}
+                        handleClose={() => setIsOpenEdit(false)}
+                      />
                     </button>
-                    <button>
-                      <Trash className="size-5 stroke-[1.2] cursor-pointer hover:scale-110 hover:fill-red-400 " />
-                    </button>
+                    {isLoadingDelete && deleteId === employee.id ? (
+                      <Spinner />
+                    ) : (
+                      <button
+                        onClick={() => {
+                          setDeleteId(employee.id);
+                          deleteEmployee(employee.id);
+                        }}
+                      >
+                        <Trash className="size-5 stroke-[1.2] cursor-pointer hover:scale-110 hover:fill-red-400 " />
+                      </button>
+                    )}
                   </div>
                 </td>
               </tr>
