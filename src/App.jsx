@@ -44,6 +44,10 @@ function App() {
           path: "/user",
           element: <User />,
         },
+        {
+          path: "*",
+          element: <h1>404 Page not found</h1>,
+        },
       ],
     },
   ]);
