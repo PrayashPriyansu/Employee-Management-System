@@ -21,7 +21,7 @@ function ProtectedRoute({ children }) {
   );
 
   //3. While loading , show spinner
-  if (isLoading) return <Spinner />;
+  if (isLoading || isFetching) return <Spinner />;
 
   //4. If there is an user render the app
   if (isAuthenticated) return children;
