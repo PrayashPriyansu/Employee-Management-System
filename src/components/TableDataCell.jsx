@@ -9,7 +9,7 @@ function TableDataCell({ data, name, emp_id, setAttendanceData }) {
   let [inHours, inMinutes] = inTime.split(":").map((i) => parseInt(i));
   const [outHours, outMinutes] = outTime.split(":").map((i) => parseInt(i));
 
-  if (inHours === 8 && inMinutes <= 30) {
+  if (inHours === 8 && inMinutes <= 10) {
     inMinutes = 0;
   }
 
@@ -99,15 +99,15 @@ function TableDataCell({ data, name, emp_id, setAttendanceData }) {
             {totalTimeInMins % 60} mins
           </Td>
           <Td className="">
-            {overTime < 30 ? (
-              <span className="font-semibold">None</span>
-            ) : (
-              <>
-                {Math.floor(overTime / 60) > 0 &&
-                  `${Math.floor(overTime / 60)} hrs `}
-                {overTime % 60 > 0 && `${overTime % 60} mins`}
-              </>
-            )}
+            <>
+              {overTimeHours >= 1
+                ? `${Math.floor(overTimeHours)} hrs ${
+                    overTimeHours % 1 === 0.5 ? "30 mins" : ""
+                  }`
+                : overTimeHours === 0.5
+                ? "30 mins"
+                : "None"}
+            </>
           </Td>
         </>
       ) : (
