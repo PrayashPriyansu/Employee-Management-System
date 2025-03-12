@@ -9,6 +9,7 @@ import DatePicker from "../components/ui/DatePicker";
 import useReadAttendance from "../feature/Attendance/useReadAttendance";
 import Spinner from "../components/ui/Spinner";
 import EditAttendance from "../components/ui/EditAttendance";
+import { useQueryClient } from "react-query";
 
 function Attendance() {
   const { isLoading, mutate } = useAttendance();
@@ -16,9 +17,9 @@ function Attendance() {
   const [isRecorded, setIsRecorded] = useState(false); // Track recorded state
   const [isEditOpen, setIsEditOpen] = useState(false);
 
-  const { employees = [] } = useEmployees();
+  const queryClient = useQueryClient();
 
-  console.log(employees);
+  const { employees = [] } = useEmployees();
 
   const { readAttendanceData, isLoadingAttendance, isFetching } =
     useReadAttendance(date);
@@ -51,6 +52,7 @@ function Attendance() {
   const handleAddAttendance = () => {
     mutate(attendanceData, {
       onSuccess: () => {
+        queryClient.invalidateQueries(["attendance", date]);
         setIsEditOpen(false);
         setIsRecorded(true);
       }, // Mark attendance as recorded
@@ -78,6 +80,7 @@ function Attendance() {
           />
           <div className="flex items-center justify-between">
             <Button
+              loading={isLoading}
               className="mt-4"
               onClick={handleAddAttendance}
               disabled={isLoading}
@@ -101,6 +104,7 @@ function Attendance() {
           />
           <Button
             className="w-full mt-4"
+            loading={isLoading}
             onClick={handleAddAttendance}
             disabled={isLoading}
           >

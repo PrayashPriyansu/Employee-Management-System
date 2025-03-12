@@ -31,6 +31,8 @@ function Button({
   endIcon,
   loading = false,
 }) {
+  console.log(loading);
+
   return (
     <button
       onClick={onClick}

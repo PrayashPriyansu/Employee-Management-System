@@ -5,7 +5,7 @@ import Button from "./Button";
 import useUpdateEmployee from "../../feature/Employees/useUpdateEmployee";
 
 function EditModal({ isOpen, handleClose, employeeData }) {
-  const { updateEmployee } = useUpdateEmployee();
+  const { updateEmployee, isLoading } = useUpdateEmployee(handleClose);
 
   function handleSubmit(data) {
     const newData = {
@@ -54,7 +54,12 @@ function EditModal({ isOpen, handleClose, employeeData }) {
           placeholder="Enter Hourly Rate (in Rupees)"
           required
         />
-        <Button className="w-full" variant="primary" type="submit">
+        <Button
+          loading={isLoading}
+          className="w-full"
+          variant="primary"
+          type="submit"
+        >
           Edit Employee
         </Button>
       </Form>

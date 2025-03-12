@@ -2,13 +2,14 @@ import { useMutation, useQueryClient } from "react-query";
 import { updateEmployee as updateEmployeeApi } from "../../services/apiEmployees";
 import { toast } from "sonner";
 
-function useUpdateEmployee() {
+function useUpdateEmployee(handleClose) {
   const queryClient = useQueryClient();
 
-  const { isLoding, mutate: updateEmployee } = useMutation({
+  const { isLoading, mutate: updateEmployee } = useMutation({
     mutationFn: ({ id, employee }) => updateEmployeeApi(id, employee),
     onSuccess: () => {
       toast.success("Employee updated successfully");
+      handleClose();
       queryClient.invalidateQueries("employees");
     },
     onError: () => {
@@ -16,6 +17,6 @@ function useUpdateEmployee() {
     },
   });
 
-  return { updateEmployee, isLoding };
+  return { updateEmployee, isLoading };
 }
 export default useUpdateEmployee;

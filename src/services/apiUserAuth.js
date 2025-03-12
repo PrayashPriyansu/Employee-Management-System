@@ -52,11 +52,15 @@ export async function updateUserDetails(data) {
 }
 
 export async function signOut() {
-  const { error } = await supabase.auth.signOut();
+  const { data, error } = await supabase.auth.signOut();
+
+  console.log(data, error);
 
   if (error) {
     throw new Error(error.message);
   }
+
+  return data;
 }
 
 export async function getAllUsers() {

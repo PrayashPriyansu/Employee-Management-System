@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 
 import Td from "./Td";
 function TableDataCell({ data, name, emp_id, setAttendanceData }) {
-  const [isPresent, setIsPresent] = useState(data.present || false);
-  const [inTime, setInTime] = useState(data.in_time || "08:00");
-  const [outTime, setOutTime] = useState(data.out_time || "16:00");
+  const [isPresent, setIsPresent] = useState(data?.present || false);
+  const [inTime, setInTime] = useState(data?.in_time || "08:00");
+  const [outTime, setOutTime] = useState(data?.out_time || "16:00");
 
   let [inHours, inMinutes] = inTime.split(":").map((i) => parseInt(i));
   const [outHours, outMinutes] = outTime.split(":").map((i) => parseInt(i));

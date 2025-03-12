@@ -31,7 +31,12 @@ function Signin() {
           type="password"
           required
         />
-        <Button type="primary" className="w-full" disabled={isLoading}>
+        <Button
+          loading={isLoading}
+          type="primary"
+          className="w-full"
+          disabled={isLoading}
+        >
           Sign In
         </Button>
       </Form>

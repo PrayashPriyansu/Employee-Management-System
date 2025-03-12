@@ -5,7 +5,7 @@ import Button from "./Button";
 import useAddEmployee from "../../feature/Employees/useAddEmployees";
 
 function CreateModal({ isOpen, handleClose }) {
-  const { addEmployee } = useAddEmployee(handleClose);
+  const { addEmployee, isLoading } = useAddEmployee(handleClose);
 
   function handleSubmit(data) {
     addEmployee(data);
@@ -45,7 +45,12 @@ function CreateModal({ isOpen, handleClose }) {
           placeholder="Enter Hourly Rate (in Rupees)"
           required
         />
-        <Button className="w-full" variant="primary" type="submit">
+        <Button
+          loading={isLoading}
+          className="w-full"
+          variant="primary"
+          type="submit"
+        >
           Add Employee
         </Button>
       </Form>

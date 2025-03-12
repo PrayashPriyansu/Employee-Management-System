@@ -4,7 +4,7 @@ import Input from "../components/ui/Input";
 import useSignup from "../feature/Authentication/useSignup";
 
 function Signup() {
-  const { signUp } = useSignup();
+  const { signUp, isLoading } = useSignup();
 
   function handleSubmit(data) {
     signUp(data);
@@ -34,7 +34,12 @@ function Signup() {
           type="password"
           required
         />
-        <Button type="primary" className="w-full">
+        <Button
+          loading={isLoading}
+          disabled={isLoading}
+          type="primary"
+          className="w-full"
+        >
           Add User
         </Button>
       </Form>

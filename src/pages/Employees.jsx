@@ -7,7 +7,7 @@ import CreateModal from "../components/ui/CreateModal";
 import EditModal from "../components/ui/EditModal";
 import useDeleteEmployee from "../feature/Employees/useDeleteEmployee";
 import Spinner from "../components/ui/Spinner";
-import getDummyData from "../services/dummyData";
+import useEmployees from "../feature/Employees/useEmployees";
 
 const thStyle =
   " text-left px-2 py-1 border-b text-xs text-stone-500 font-medium ";
@@ -15,8 +15,7 @@ const thStyle =
 const tdStyle = " text-left text-sm px-2 py-3 border-b text-stone-950/80 ";
 
 function EmployeeTable() {
-  // const { employees = [] } = useEmployees();
-  const employees = getDummyData();
+  const { employees = [], isFetching, isPending } = useEmployees();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
@@ -34,7 +33,12 @@ function EmployeeTable() {
       <CreateModal isOpen={isOpen} handleClose={() => setIsOpen(false)} />
       <div className="flex">
         <div className="flex-1"></div>
-        <Button size="small" variant="secondary" onClick={handleAddEmployee}>
+        <Button
+          isLoading={isPending || isFetching}
+          size="small"
+          variant="secondary"
+          onClick={handleAddEmployee}
+        >
           Add Employee
         </Button>
       </div>
@@ -68,27 +72,25 @@ function EmployeeTable() {
                 </td>
                 <td className={`text-left ${tdStyle}`}>{employee.phone}</td>
                 <td className={`text-right ${tdStyle}`}>
-                  {/* {employee.attendance.present} */}
-                  20
+                  {/* {employee.attendance.present} */}-
                 </td>
                 <td className={`text-right ${tdStyle}`}>
-                  {/* {employee.attendance.absent} */}2
+                  {/* {employee.attendance.absent} */}-
                 </td>
 
                 <td className={`text-right ${tdStyle}`}>
-                  {/* {employee.overtimeHours} */}
-                  30
+                  {/* {employee.overtimeHours} */}-
                 </td>
                 <td className={`text-right ${tdStyle}`}>
-                  {/* {employee.totalHoursWorked} */}
-                  120
+                  {/* {employee.totalHoursWorked} */}-
                 </td>
                 <td className={`text-right ${tdStyle}`}>
                   {employee.hourly_rate}
                 </td>
                 <td className={`text-right font-semibold ${tdStyle}`}>
-                  {employee.hourlyRate *
-                    (employee.totalHoursWorked + employee.overtimeHours)}
+                  {/* {employee.hourlyRate *
+                    (employee.totalHoursWorked + employee.overtimeHours)} */}
+                  -
                 </td>
                 <td className={` w-1/12 ${tdStyle}`}>
                   <div className="flex items-center justify-end gap-2">

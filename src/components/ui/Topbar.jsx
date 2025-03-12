@@ -1,5 +1,6 @@
 import { format, getHours, startOfDay } from "date-fns";
 import Searchbar from "../Searchbar";
+import SignOut from "./SignOut";
 
 function getTimeOfDay() {
   const hour = getHours(new Date());
@@ -24,6 +25,7 @@ function Topbar() {
         </div>
       </div>
       <Searchbar />
+      <SignOut />
     </div>
   );
 }
