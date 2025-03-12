@@ -7,7 +7,6 @@ function Signin() {
   const { isLoading, signIn } = useSignin();
 
   function handleSubmit(data) {
-    console.log(data);
     signIn({ email: data.email, password: data.password });
   }
 
@@ -18,8 +17,20 @@ function Signin() {
         className="flex flex-col gap-4 p-10 border-2 rounded-lg w-96 "
       >
         <h1 className="text-2xl font-semibold">Sign In</h1>
-        <Input name="email" label="Email" type="email" required />
-        <Input name="password" label="Password" type="password" required />
+        <Input
+          autocomplete="email"
+          name="email"
+          label="Email"
+          type="email"
+          required
+        />
+        <Input
+          autocomplete="current-password"
+          name="password"
+          label="Password"
+          type="password"
+          required
+        />
         <Button type="primary" className="w-full" disabled={isLoading}>
           Sign In
         </Button>

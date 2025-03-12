@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 import { updateEmployee as updateEmployeeApi } from "../../services/apiEmployees";
+import { toast } from "sonner";
 
 function useUpdateEmployee() {
   const queryClient = useQueryClient();
@@ -7,11 +8,11 @@ function useUpdateEmployee() {
   const { isLoding, mutate: updateEmployee } = useMutation({
     mutationFn: ({ id, employee }) => updateEmployeeApi(id, employee),
     onSuccess: () => {
-      console.log("Employee updated successfully");
+      toast.success("Employee updated successfully");
       queryClient.invalidateQueries("employees");
     },
     onError: () => {
-      console.log("Error updating employee");
+      toast.error("Error updating employee");
     },
   });
 

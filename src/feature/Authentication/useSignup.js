@@ -1,5 +1,6 @@
 import { useMutation } from "react-query";
 import { signUp as signUpApi } from "../../services/apiUserAuth";
+import { toast } from "sonner";
 
 function useSignup() {
   const {
@@ -9,15 +10,15 @@ function useSignup() {
   } = useMutation({
     mutationFn: ({ name, email, password }) => signUpApi(name, email, password),
     onSuccess: () => {
-      console.log("Signup Success");
+      toast.success("Authenticated user created successfully");
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
+      toast.error("Error creating user");
     },
   });
 
   if (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
 
   return { isLoading, signUp };

@@ -18,8 +18,6 @@ function EmployeeTable() {
   // const { employees = [] } = useEmployees();
   const employees = getDummyData();
 
-  console.log(employees);
-
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
@@ -41,7 +39,7 @@ function EmployeeTable() {
         </Button>
       </div>
       <div className="overflow-x-auto">
-        <table className="relative min-w-full border-collapse table-fixed">
+        <table className="relative w-full border-collapse table-fixed">
           <thead className="">
             <tr>
               <th className={`${thStyle}  w-1/6`}>Name</th>

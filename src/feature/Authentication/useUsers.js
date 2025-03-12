@@ -8,7 +8,7 @@ function useUsers() {
   });
 
   if (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
   return {
     users: data,

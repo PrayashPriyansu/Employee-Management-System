@@ -1,14 +1,15 @@
 import { useMutation } from "react-query";
 import { signOut } from "../../services/apiUserAuth";
+import { toast } from "sonner";
 
 function useSignout() {
   const { isLoading } = useMutation({
     mutationFn: signOut,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
+      toast.success("Signed out successfully");
     },
     onError: () => {
-      console.log("Error signing out");
+      toast.error("Error signing out");
     },
   });
 

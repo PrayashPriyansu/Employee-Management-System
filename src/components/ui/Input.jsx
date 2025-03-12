@@ -69,7 +69,7 @@ function Input({
         setFocus(name);
       }
     },
-    [setFocus, name]
+    [setFocus, name, focus]
   );
 
   return (

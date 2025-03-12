@@ -43,8 +43,6 @@ export async function addEmployee(employee) {
 }
 
 export async function updateEmployee(id, employee) {
-  console.log(id, employee);
-
   const { data, error } = await supabase
     .from("employees")
     .update(employee)
