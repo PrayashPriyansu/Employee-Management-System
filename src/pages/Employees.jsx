@@ -19,6 +19,7 @@ function EmployeeTable() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [employeeData, setEmployeeData] = useState({});
 
   const [deleteId, setDeleteId] = useState(null);
 
@@ -99,11 +100,14 @@ function EmployeeTable() {
                     </Link>
                     <button>
                       <EditIcon
-                        onClick={() => setIsOpenEdit(true)}
+                        onClick={() => {
+                          setIsOpenEdit(true);
+                          setEmployeeData(employee);
+                        }}
                         className="size-5 stroke-[1.2] cursor-pointer hover:scale-110 hover:fill-blue-400"
                       />
                       <EditModal
-                        employeeData={employee}
+                        employeeData={employeeData}
                         isOpen={isOpenEdit}
                         handleClose={() => setIsOpenEdit(false)}
                       />
