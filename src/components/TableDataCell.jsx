@@ -14,7 +14,10 @@ function TableDataCell({ data, name, emp_id, setAttendanceData }) {
   }
 
   const inTimeInMins = inHours * 60 + inMinutes;
-  const outTimeInMins = outHours * 60 + outMinutes;
+  let outTimeInMins = outHours * 60 + outMinutes;
+  if (outTimeInMins <= inTimeInMins) {
+    outTimeInMins += 24 * 60;
+  }
 
   const totalTimeInMins = outTimeInMins - inTimeInMins;
 
