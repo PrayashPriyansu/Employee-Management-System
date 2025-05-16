@@ -1,5 +1,5 @@
 import { Home, Lock, UserCheck, Users } from "lucide-react";
-
+//  ReceiptText,
 import NavItem from "./NavItem";
 
 const routes = [
@@ -7,6 +7,7 @@ const routes = [
   { path: "/attendance", Icon: UserCheck, name: "Attendance" },
   { path: "/employees", Icon: Users, name: "Employees" },
   { path: "/user", Icon: Lock, name: "Users" },
+  // { path: "/receipt", Icon: ReceiptText, name: "Receipt" },
 ];
 
 function NavMenu({ isOpen }) {

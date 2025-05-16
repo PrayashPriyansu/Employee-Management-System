@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 const defaultStyles =
-  "shadow-sm w-fit rounded-md cursor-pointer font-semibold active:scale-95 disabled:scale-100 transition duration-200 flex items-center justify-center gap-1  disabled:cursor-not-allowed";
+  "shadow-sm relative w-fit rounded-md cursor-pointer font-semibold active:scale-95 disabled:scale-100 transition duration-200 flex items-center justify-center gap-1  disabled:cursor-not-allowed";
 
 const variantStyles = {
   primary:

@@ -8,6 +8,10 @@ function CreateModal({ isOpen, handleClose }) {
   const { addEmployee, isLoading } = useAddEmployee(handleClose);
 
   function handleSubmit(data) {
+    if (data.phone === "") {
+      data.phone = "NA";
+    }
+
     addEmployee(data);
   }
 
@@ -29,7 +33,6 @@ function CreateModal({ isOpen, handleClose }) {
           placeholder="Enter Phone Number"
           label="Phone Number"
           type="text"
-          required
         />
         <Input
           name="address"

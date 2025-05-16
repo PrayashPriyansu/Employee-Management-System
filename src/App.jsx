@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "sonner";
 import Signin from "./pages/Signin";
 import User from "./pages/User";
+import Receipt from "./pages/Receipt";
 
 function App() {
   const queryClient = new QueryClient();
@@ -43,6 +44,10 @@ function App() {
         {
           path: "/user",
           element: <User />,
+        },
+        {
+          path: "/receipt",
+          element: <Receipt />,
         },
         {
           path: "*",
